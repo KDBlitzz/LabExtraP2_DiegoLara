@@ -6,7 +6,9 @@ package labextrap2_diegolara;
 
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
@@ -20,6 +22,7 @@ public class Main extends javax.swing.JFrame {
      * Creates new form Main
      */
     Deporte d;
+    Torneo t;
 
     public Main() {
         initComponents();
@@ -35,6 +38,15 @@ public class Main extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel2 = new javax.swing.JLabel();
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        mi_listar = new javax.swing.JMenuItem();
+        mi_mostrar = new javax.swing.JMenuItem();
+        Listar = new javax.swing.JDialog();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jl_lista = new javax.swing.JList<>();
+        Tabla = new javax.swing.JDialog();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -63,6 +75,65 @@ public class Main extends javax.swing.JFrame {
 
         jLabel2.setText("jLabel2");
 
+        mi_listar.setText("Listar equipos");
+        mi_listar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_listarActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(mi_listar);
+
+        mi_mostrar.setText("Mostrar Tabla");
+        mi_mostrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_mostrarActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(mi_mostrar);
+
+        jl_lista.setModel(new DefaultListModel());
+        jScrollPane2.setViewportView(jl_lista);
+
+        javax.swing.GroupLayout ListarLayout = new javax.swing.GroupLayout(Listar.getContentPane());
+        Listar.getContentPane().setLayout(ListarLayout);
+        ListarLayout.setHorizontalGroup(
+            ListarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ListarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 686, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        ListarLayout.setVerticalGroup(
+            ListarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ListarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(242, Short.MAX_VALUE))
+        );
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nombre", "Puntos"
+            }
+        ));
+        jScrollPane3.setViewportView(jTable1);
+
+        javax.swing.GroupLayout TablaLayout = new javax.swing.GroupLayout(Tabla.getContentPane());
+        Tabla.getContentPane().setLayout(TablaLayout);
+        TablaLayout.setHorizontalGroup(
+            TablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 641, Short.MAX_VALUE)
+        );
+        TablaLayout.setVerticalGroup(
+            TablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TablaLayout.createSequentialGroup()
+                .addGap(0, 42, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Periodos");
@@ -75,6 +146,11 @@ public class Main extends javax.swing.JFrame {
         treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Q5");
         treeNode1.add(treeNode2);
         jt_Principal.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        jt_Principal.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jt_PrincipalMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jt_Principal);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -286,7 +362,7 @@ public class Main extends javax.swing.JFrame {
         model.addElement(tf_nombre.getText());
         model2.addElement(tf_nombre.getText());
         d = new Deporte();
-        
+
         if (cb_q1.isSelected()) {
             add1.add(q1);
             d.setPeriodo(1);
@@ -313,6 +389,9 @@ public class Main extends javax.swing.JFrame {
 
     private void jb_addeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_addeMouseClicked
         Equipo e = new Equipo(tf_nequipo.getText(), Integer.parseInt(tf_puntos.getText()), cb_tipoe.getSelectedItem().toString());
+        DefaultListModel model = (DefaultListModel) jl_lista.getModel();
+        model.addElement(e);
+        jl_lista.setModel(model);
         DefaultTreeModel m = (DefaultTreeModel) jt_Principal.getModel();
         DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) m.getRoot();
         DefaultMutableTreeNode q1 = (DefaultMutableTreeNode) raiz.getChildAt(0);
@@ -325,6 +404,7 @@ public class Main extends javax.swing.JFrame {
                 if (q1.getChildAt(j).toString().equals(e.getTipo())) {
                     DefaultMutableTreeNode p = new DefaultMutableTreeNode(e);
                     ((DefaultMutableTreeNode) dep.getChildAt(j)).add(p);
+                    t.getEquipos().add(e);
                 }
             }
         }
@@ -334,6 +414,7 @@ public class Main extends javax.swing.JFrame {
                 if (q2.getChildAt(j).toString().equals(e.getTipo())) {
                     DefaultMutableTreeNode p = new DefaultMutableTreeNode(e);
                     ((DefaultMutableTreeNode) dep.getChildAt(j)).add(p);
+                    t.getEquipos().add(e);
                 }
             }
         }
@@ -343,6 +424,7 @@ public class Main extends javax.swing.JFrame {
                 if (q3.getChildAt(j).toString().equals(e.getTipo())) {
                     DefaultMutableTreeNode p = new DefaultMutableTreeNode(e);
                     ((DefaultMutableTreeNode) dep.getChildAt(j)).add(p);
+                    t.getEquipos().add(e);
                 }
             }
         }
@@ -352,13 +434,21 @@ public class Main extends javax.swing.JFrame {
                 if (q4.getChildAt(j).toString().equals(e.getTipo())) {
                     DefaultMutableTreeNode p = new DefaultMutableTreeNode(e);
                     ((DefaultMutableTreeNode) dep.getChildAt(j)).add(p);
+                    t.getEquipos().add(e);
                 }
             }
         }
-        
 
         m.reload();
-
+        for (Equipo b : equipos) {
+            DefaultTableModel model2 = (DefaultTableModel) jTable1.getModel();
+            Object [] data = new Object[2];
+            data[1] = b.getNombre();
+            data[2] = b.getPuntos();
+            model2.addRow(data);
+            jTable1.setModel(model2);
+        }
+        
     }//GEN-LAST:event_jb_addeMouseClicked
 
     private void jb_addtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_addtMouseClicked
@@ -368,7 +458,7 @@ public class Main extends javax.swing.JFrame {
         DefaultMutableTreeNode q2 = (DefaultMutableTreeNode) raiz.getChildAt(1);
         DefaultMutableTreeNode q3 = (DefaultMutableTreeNode) raiz.getChildAt(2);
         DefaultMutableTreeNode q4 = (DefaultMutableTreeNode) raiz.getChildAt(3);
-        Torneo t = new Torneo(tf_tnombre.getText(), cb_tipo.getSelectedItem().toString());
+        t = new Torneo(tf_tnombre.getText(), cb_tipo.getSelectedItem().toString());
         torneos.add(t);
         for (int i = 0; i < q1.getChildCount(); i++) {
             if (q1.getChildAt(i).toString().
@@ -405,8 +495,42 @@ public class Main extends javax.swing.JFrame {
 
         m.reload();
 
-        
+
     }//GEN-LAST:event_jb_addtMouseClicked
+
+    private void jt_PrincipalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_PrincipalMouseClicked
+
+        if (evt.isMetaDown()) {
+            //seleccionar un nodo con click derecho
+            int row = jt_Principal.getClosestRowForLocation(
+                    evt.getX(), evt.getY());
+            jt_Principal.setSelectionRow(row);
+            Object v1
+                    = jt_Principal.getSelectionPath().
+                            getLastPathComponent();
+            nodo_seleccionado = (DefaultMutableTreeNode) v1;
+            if (nodo_seleccionado.getUserObject() instanceof Torneo) {
+                torneoselec
+                        = (Torneo) nodo_seleccionado.
+                                getUserObject();
+                jPopupMenu1.show(evt.getComponent(),
+                        evt.getX(), evt.getY());
+            }
+        }
+    }//GEN-LAST:event_jt_PrincipalMouseClicked
+
+    private void mi_listarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_listarActionPerformed
+        Listar.pack();
+        Listar.setVisible(true);
+        this.setVisible(false);
+
+    }//GEN-LAST:event_mi_listarActionPerformed
+
+    private void mi_mostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_mostrarActionPerformed
+        Tabla.pack();
+        Tabla.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_mi_mostrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -444,8 +568,12 @@ public class Main extends javax.swing.JFrame {
     }
     ArrayList<Deporte> deportes = new ArrayList();
     ArrayList<Torneo> torneos = new ArrayList();
-    
+    ArrayList<Equipo> equipos = new ArrayList();
+    DefaultMutableTreeNode nodo_seleccionado;
+    Torneo torneoselec;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDialog Listar;
+    private javax.swing.JDialog Tabla;
     private javax.swing.JCheckBox cb_q1;
     private javax.swing.JCheckBox cb_q2;
     private javax.swing.JCheckBox cb_q3;
@@ -462,12 +590,19 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JButton jb_add;
     private javax.swing.JButton jb_adde;
     private javax.swing.JButton jb_addt;
+    private javax.swing.JList<String> jl_lista;
     private javax.swing.JTree jt_Principal;
+    private javax.swing.JMenuItem mi_listar;
+    private javax.swing.JMenuItem mi_mostrar;
     private javax.swing.JTextField tf_nequipo;
     private javax.swing.JTextField tf_nombre;
     private javax.swing.JTextField tf_puntos;
