@@ -11,14 +11,16 @@ import java.util.ArrayList;
  * @author diego
  */
 public class Torneo {
+    private String tipo;
     private String nombre;
     private ArrayList<Equipo> equipos = new ArrayList();
 
     public Torneo() {
     }
 
-    public Torneo(String nombre) {
+    public Torneo(String nombre, String tipo) {
         this.nombre = nombre;
+        this.tipo = tipo;
     }
 
     public String getNombre() {
@@ -35,6 +37,14 @@ public class Torneo {
 
     public void setEquipos(ArrayList<Equipo> equipos) {
         this.equipos = equipos;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     @Override
