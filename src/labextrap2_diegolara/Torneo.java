@@ -14,7 +14,7 @@ public class Torneo {
     private String tipo;
     private String nombre;
     private ArrayList<Equipo> equipos = new ArrayList();
-
+    private ArrayList<Partido> partidos = new ArrayList();
     public Torneo() {
     }
 
@@ -45,6 +45,14 @@ public class Torneo {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+
+    public ArrayList<Partido> getPartidos() {
+        return partidos;
+    }
+
+    public void setPartidos(ArrayList<Partido> partidos) {
+        this.partidos = partidos;
     }
 
     @Override

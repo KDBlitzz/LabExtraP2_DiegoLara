@@ -4,6 +4,7 @@
  */
 package labextrap2_diegolara;
 
+import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -283,23 +284,30 @@ public class Main extends javax.swing.JFrame {
         DefaultComboBoxModel model = (DefaultComboBoxModel) cb_tipo.getModel();
         DefaultComboBoxModel model2 = (DefaultComboBoxModel) cb_tipoe.getModel();
         model.addElement(tf_nombre.getText());
+        model2.addElement(tf_nombre.getText());
         d = new Deporte();
+        
         if (cb_q1.isSelected()) {
             add1.add(q1);
+            d.setPeriodo(1);
         }
         if (cb_q2.isSelected()) {
             add2.add(q2);
+            d.setPeriodo(2);
         }
         if (cb_q3.isSelected()) {
             add3.add(q4);
+            d.setPeriodo(3);
         }
         if (cb_q4.isSelected()) {
             add4.add(q5);
+            d.setPeriodo(4);
         }
         m.reload();
         cb_tipo.setModel(model);
         cb_tipoe.setModel(model2);
         tf_nombre.setText("");
+        deportes.add(d);
         JOptionPane.showMessageDialog(this, "Agregado");
     }//GEN-LAST:event_jb_addMouseClicked
 
@@ -311,35 +319,43 @@ public class Main extends javax.swing.JFrame {
         DefaultMutableTreeNode q2 = (DefaultMutableTreeNode) raiz.getChildAt(1);
         DefaultMutableTreeNode q3 = (DefaultMutableTreeNode) raiz.getChildAt(2);
         DefaultMutableTreeNode q4 = (DefaultMutableTreeNode) raiz.getChildAt(3);
-        Torneo t = new Torneo(tf_tnombre.getText(), cb_tipo.getSelectedItem().toString());
         for (int i = 0; i < q1.getChildCount(); i++) {
-            if (q1.getChildAt(i).toString().
-                    equals(t.getTipo())) {
-                DefaultMutableTreeNode p = new DefaultMutableTreeNode(t);
-                ((DefaultMutableTreeNode) q1.getChildAt(i)).add(p);
+            DefaultMutableTreeNode dep = (DefaultMutableTreeNode) q1.getChildAt(i);
+            for (int j = 0; j < dep.getChildCount(); j++) {
+                if (q1.getChildAt(j).toString().equals(e.getTipo())) {
+                    DefaultMutableTreeNode p = new DefaultMutableTreeNode(e);
+                    ((DefaultMutableTreeNode) dep.getChildAt(j)).add(p);
+                }
             }
         }
         for (int i = 0; i < q2.getChildCount(); i++) {
-            if (q2.getChildAt(i).toString().
-                    equals(t.getTipo())) {
-                DefaultMutableTreeNode p = new DefaultMutableTreeNode(t);
-                ((DefaultMutableTreeNode) q2.getChildAt(i)).add(p);
+            DefaultMutableTreeNode dep = (DefaultMutableTreeNode) q2.getChildAt(i);
+            for (int j = 0; j < dep.getChildCount(); j++) {
+                if (q2.getChildAt(j).toString().equals(e.getTipo())) {
+                    DefaultMutableTreeNode p = new DefaultMutableTreeNode(e);
+                    ((DefaultMutableTreeNode) dep.getChildAt(j)).add(p);
+                }
             }
         }
         for (int i = 0; i < q3.getChildCount(); i++) {
-            if (q3.getChildAt(i).toString().
-                    equals(t.getTipo())) {
-                DefaultMutableTreeNode p = new DefaultMutableTreeNode(t);
-                ((DefaultMutableTreeNode) q3.getChildAt(i)).add(p);
+            DefaultMutableTreeNode dep = (DefaultMutableTreeNode) q3.getChildAt(i);
+            for (int j = 0; j < dep.getChildCount(); j++) {
+                if (q3.getChildAt(j).toString().equals(e.getTipo())) {
+                    DefaultMutableTreeNode p = new DefaultMutableTreeNode(e);
+                    ((DefaultMutableTreeNode) dep.getChildAt(j)).add(p);
+                }
             }
         }
         for (int i = 0; i < q4.getChildCount(); i++) {
-            if (q4.getChildAt(i).toString().
-                    equals(t.getTipo())) {
-                DefaultMutableTreeNode p = new DefaultMutableTreeNode(t);
-                ((DefaultMutableTreeNode) q4.getChildAt(i)).add(p);
+            DefaultMutableTreeNode dep = (DefaultMutableTreeNode) q4.getChildAt(i);
+            for (int j = 0; j < dep.getChildCount(); j++) {
+                if (q4.getChildAt(j).toString().equals(e.getTipo())) {
+                    DefaultMutableTreeNode p = new DefaultMutableTreeNode(e);
+                    ((DefaultMutableTreeNode) dep.getChildAt(j)).add(p);
+                }
             }
         }
+        
 
         m.reload();
 
@@ -353,9 +369,11 @@ public class Main extends javax.swing.JFrame {
         DefaultMutableTreeNode q3 = (DefaultMutableTreeNode) raiz.getChildAt(2);
         DefaultMutableTreeNode q4 = (DefaultMutableTreeNode) raiz.getChildAt(3);
         Torneo t = new Torneo(tf_tnombre.getText(), cb_tipo.getSelectedItem().toString());
+        torneos.add(t);
         for (int i = 0; i < q1.getChildCount(); i++) {
             if (q1.getChildAt(i).toString().
                     equals(t.getTipo())) {
+                d.getListaTorneo().add(t);
                 DefaultMutableTreeNode p = new DefaultMutableTreeNode(t);
                 ((DefaultMutableTreeNode) q1.getChildAt(i)).add(p);
             }
@@ -363,6 +381,7 @@ public class Main extends javax.swing.JFrame {
         for (int i = 0; i < q2.getChildCount(); i++) {
             if (q2.getChildAt(i).toString().
                     equals(t.getTipo())) {
+                d.getListaTorneo().add(t);
                 DefaultMutableTreeNode p = new DefaultMutableTreeNode(t);
                 ((DefaultMutableTreeNode) q2.getChildAt(i)).add(p);
             }
@@ -370,6 +389,7 @@ public class Main extends javax.swing.JFrame {
         for (int i = 0; i < q3.getChildCount(); i++) {
             if (q3.getChildAt(i).toString().
                     equals(t.getTipo())) {
+                d.getListaTorneo().add(t);
                 DefaultMutableTreeNode p = new DefaultMutableTreeNode(t);
                 ((DefaultMutableTreeNode) q3.getChildAt(i)).add(p);
             }
@@ -377,6 +397,7 @@ public class Main extends javax.swing.JFrame {
         for (int i = 0; i < q4.getChildCount(); i++) {
             if (q4.getChildAt(i).toString().
                     equals(t.getTipo())) {
+                d.getListaTorneo().add(t);
                 DefaultMutableTreeNode p = new DefaultMutableTreeNode(t);
                 ((DefaultMutableTreeNode) q4.getChildAt(i)).add(p);
             }
@@ -384,7 +405,7 @@ public class Main extends javax.swing.JFrame {
 
         m.reload();
 
-
+        
     }//GEN-LAST:event_jb_addtMouseClicked
 
     /**
@@ -421,7 +442,9 @@ public class Main extends javax.swing.JFrame {
             }
         });
     }
-
+    ArrayList<Deporte> deportes = new ArrayList();
+    ArrayList<Torneo> torneos = new ArrayList();
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox cb_q1;
     private javax.swing.JCheckBox cb_q2;
