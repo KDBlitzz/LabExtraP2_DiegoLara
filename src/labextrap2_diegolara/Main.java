@@ -4,6 +4,7 @@
  */
 package labextrap2_diegolara;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -18,6 +19,7 @@ public class Main extends javax.swing.JFrame {
      * Creates new form Main
      */
     Deporte d;
+
     public Main() {
         initComponents();
     }
@@ -50,12 +52,13 @@ public class Main extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         tf_puntos = new javax.swing.JTextField();
         jb_adde = new javax.swing.JButton();
+        cb_tipoe = new javax.swing.JComboBox<>();
         jPanel4 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         tf_tnombre = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        tf_tipo = new javax.swing.JTextField();
         jb_addt = new javax.swing.JButton();
+        cb_tipo = new javax.swing.JComboBox<>();
 
         jLabel2.setText("jLabel2");
 
@@ -179,14 +182,18 @@ public class Main extends javax.swing.JFrame {
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(tf_nequipo)
-                            .addComponent(tf_puntos, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE))))
+                            .addComponent(cb_tipoe, 0, 189, Short.MAX_VALUE)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(tf_nequipo)
+                                .addComponent(tf_puntos, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)))))
                 .addContainerGap(412, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(47, 47, 47)
+                .addGap(46, 46, 46)
+                .addComponent(cb_tipoe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(tf_nequipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -194,7 +201,7 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(tf_puntos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(82, 82, 82)
+                .addGap(26, 26, 26)
                 .addComponent(jb_adde)
                 .addContainerGap(312, Short.MAX_VALUE))
         );
@@ -227,17 +234,17 @@ public class Main extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(tf_tnombre)
-                            .addComponent(tf_tipo, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE))))
+                            .addComponent(cb_tipo, 0, 204, Short.MAX_VALUE))))
                 .addContainerGap(462, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(59, 59, 59)
+                .addGap(56, 56, 56)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(tf_tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
+                    .addComponent(cb_tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(tf_tnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -273,33 +280,111 @@ public class Main extends javax.swing.JFrame {
         DefaultMutableTreeNode add2 = (DefaultMutableTreeNode) raiz.getChildAt(1);
         DefaultMutableTreeNode add3 = (DefaultMutableTreeNode) raiz.getChildAt(2);
         DefaultMutableTreeNode add4 = (DefaultMutableTreeNode) raiz.getChildAt(3);
+        DefaultComboBoxModel model = (DefaultComboBoxModel) cb_tipo.getModel();
+        DefaultComboBoxModel model2 = (DefaultComboBoxModel) cb_tipoe.getModel();
+        model.addElement(tf_nombre.getText());
         d = new Deporte();
         if (cb_q1.isSelected()) {
             add1.add(q1);
         }
         if (cb_q2.isSelected()) {
             add2.add(q2);
-
         }
         if (cb_q3.isSelected()) {
             add3.add(q4);
-
         }
         if (cb_q4.isSelected()) {
             add4.add(q5);
         }
         m.reload();
+        cb_tipo.setModel(model);
+        cb_tipoe.setModel(model2);
         tf_nombre.setText("");
         JOptionPane.showMessageDialog(this, "Agregado");
     }//GEN-LAST:event_jb_addMouseClicked
 
     private void jb_addeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_addeMouseClicked
-        Equipo e = new Equipo(tf_nequipo.getText(), Integer.parseInt(tf_puntos.getText()));
-        
+        Equipo e = new Equipo(tf_nequipo.getText(), Integer.parseInt(tf_puntos.getText()), cb_tipoe.getSelectedItem().toString());
+        DefaultTreeModel m = (DefaultTreeModel) jt_Principal.getModel();
+        DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) m.getRoot();
+        DefaultMutableTreeNode q1 = (DefaultMutableTreeNode) raiz.getChildAt(0);
+        DefaultMutableTreeNode q2 = (DefaultMutableTreeNode) raiz.getChildAt(1);
+        DefaultMutableTreeNode q3 = (DefaultMutableTreeNode) raiz.getChildAt(2);
+        DefaultMutableTreeNode q4 = (DefaultMutableTreeNode) raiz.getChildAt(3);
+        Torneo t = new Torneo(tf_tnombre.getText(), cb_tipo.getSelectedItem().toString());
+        for (int i = 0; i < q1.getChildCount(); i++) {
+            if (q1.getChildAt(i).toString().
+                    equals(t.getTipo())) {
+                DefaultMutableTreeNode p = new DefaultMutableTreeNode(t);
+                ((DefaultMutableTreeNode) q1.getChildAt(i)).add(p);
+            }
+        }
+        for (int i = 0; i < q2.getChildCount(); i++) {
+            if (q2.getChildAt(i).toString().
+                    equals(t.getTipo())) {
+                DefaultMutableTreeNode p = new DefaultMutableTreeNode(t);
+                ((DefaultMutableTreeNode) q2.getChildAt(i)).add(p);
+            }
+        }
+        for (int i = 0; i < q3.getChildCount(); i++) {
+            if (q3.getChildAt(i).toString().
+                    equals(t.getTipo())) {
+                DefaultMutableTreeNode p = new DefaultMutableTreeNode(t);
+                ((DefaultMutableTreeNode) q3.getChildAt(i)).add(p);
+            }
+        }
+        for (int i = 0; i < q4.getChildCount(); i++) {
+            if (q4.getChildAt(i).toString().
+                    equals(t.getTipo())) {
+                DefaultMutableTreeNode p = new DefaultMutableTreeNode(t);
+                ((DefaultMutableTreeNode) q4.getChildAt(i)).add(p);
+            }
+        }
+
+        m.reload();
+
     }//GEN-LAST:event_jb_addeMouseClicked
 
     private void jb_addtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_addtMouseClicked
-        
+        DefaultTreeModel m = (DefaultTreeModel) jt_Principal.getModel();
+        DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) m.getRoot();
+        DefaultMutableTreeNode q1 = (DefaultMutableTreeNode) raiz.getChildAt(0);
+        DefaultMutableTreeNode q2 = (DefaultMutableTreeNode) raiz.getChildAt(1);
+        DefaultMutableTreeNode q3 = (DefaultMutableTreeNode) raiz.getChildAt(2);
+        DefaultMutableTreeNode q4 = (DefaultMutableTreeNode) raiz.getChildAt(3);
+        Torneo t = new Torneo(tf_tnombre.getText(), cb_tipo.getSelectedItem().toString());
+        for (int i = 0; i < q1.getChildCount(); i++) {
+            if (q1.getChildAt(i).toString().
+                    equals(t.getTipo())) {
+                DefaultMutableTreeNode p = new DefaultMutableTreeNode(t);
+                ((DefaultMutableTreeNode) q1.getChildAt(i)).add(p);
+            }
+        }
+        for (int i = 0; i < q2.getChildCount(); i++) {
+            if (q2.getChildAt(i).toString().
+                    equals(t.getTipo())) {
+                DefaultMutableTreeNode p = new DefaultMutableTreeNode(t);
+                ((DefaultMutableTreeNode) q2.getChildAt(i)).add(p);
+            }
+        }
+        for (int i = 0; i < q3.getChildCount(); i++) {
+            if (q3.getChildAt(i).toString().
+                    equals(t.getTipo())) {
+                DefaultMutableTreeNode p = new DefaultMutableTreeNode(t);
+                ((DefaultMutableTreeNode) q3.getChildAt(i)).add(p);
+            }
+        }
+        for (int i = 0; i < q4.getChildCount(); i++) {
+            if (q4.getChildAt(i).toString().
+                    equals(t.getTipo())) {
+                DefaultMutableTreeNode p = new DefaultMutableTreeNode(t);
+                ((DefaultMutableTreeNode) q4.getChildAt(i)).add(p);
+            }
+        }
+
+        m.reload();
+
+
     }//GEN-LAST:event_jb_addtMouseClicked
 
     /**
@@ -342,6 +427,8 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JCheckBox cb_q2;
     private javax.swing.JCheckBox cb_q3;
     private javax.swing.JCheckBox cb_q4;
+    private javax.swing.JComboBox<String> cb_tipo;
+    private javax.swing.JComboBox<String> cb_tipoe;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -361,7 +448,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JTextField tf_nequipo;
     private javax.swing.JTextField tf_nombre;
     private javax.swing.JTextField tf_puntos;
-    private javax.swing.JTextField tf_tipo;
     private javax.swing.JTextField tf_tnombre;
     // End of variables declaration//GEN-END:variables
 }
